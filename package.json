@@ -1,0 +1,28 @@
+{
+  "name": "tchat",
+  "version": "1.0.0",
+  "description": "The zuulaxx's tchat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuulaxx/tchat.git"
+  },
+  "author": "zuulaxx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zuulaxx/tchat/issues"
+  },
+  "homepage": "https://github.com/zuulaxx/tchat#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
