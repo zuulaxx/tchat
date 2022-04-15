@@ -10,10 +10,12 @@ app.use(express.static('public'));
 io.on('connection', (socket) => {
   socket.broadcast.emit('chat message', {
     message: "Un utilisateur s'est connecté !",
+    type: 'system',
   });
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
       message: "Un utilisateur s'est déconnecté !",
+      type: 'system',
     });
   });
 });
