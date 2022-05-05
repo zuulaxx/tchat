@@ -21,10 +21,10 @@ form.addEventListener('submit', function (e) {
 
 socket.on('chat message', function (msg) {
   const item = document.createElement('li');
-  item.textContent = msg.message;
-
-  if (msg.type == 'system') item.classList.add('system-message');
-  else item.innerHTML = '<b>' + msg.user + ' :</b> ' + item.textContent;
+  if (msg.type == 'system') {
+    item.innerHTML = msg.message;
+    item.classList.add('system-message');
+  } else item.innerHTML = '<b>' + msg.user + ' :</b> ' + msg.message;
 
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);

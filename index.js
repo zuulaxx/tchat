@@ -13,11 +13,11 @@ io.on('connection', (socket) => {
   users[socket.id] = socket.handshake.query.username;
 
   socket.on('disconnect', () => {
-    delete users[socket.id];
     socket.broadcast.emit('chat message', {
       message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       type: 'system',
     });
+    delete users[socket.id];
   });
 
   socket.on('chat message', (msg) => {
