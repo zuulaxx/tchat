@@ -7,16 +7,23 @@ const io = new Server(server);
 
 app.use(express.static('public'));
 
+// var users = [];
+var users = 0;
+
 io.on('connection', (socket) => {
   socket.broadcast.emit('chat message', {
     message: "Un utilisateur s'est connecté !",
     type: 'system',
   });
+  users++;
+  console.log(users + ' utilisateurs');
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
       message: "Un utilisateur s'est déconnecté !",
       type: 'system',
     });
+    users--;
+    console.log(users + ' utilisateurs');
   });
 });
 
