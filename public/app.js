@@ -23,8 +23,8 @@ const socket = io({ query: { username: username } });
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   if (input.value) {
-    socket.emit('chat message', { message: input.value, user: username });
-    input.value = '';
+    socket.emit('chat message', { message:input.value, user:
+      username }); input.value = '';      
   }
 });
 
