@@ -8,9 +8,17 @@ const io = new Server(server);
 app.use(express.static('public'));
 
 var users = {};
+function userExists(username) {
+  var duhArray = [];
+  for (const user of users) {
+    if (user == username) duhArray.push(user);
+  }
+  return duhArray;
+}
 
 io.on('connection', (socket) => {
   users[socket.id] = socket.handshake.query.username;
+  console.log(userExists(users[socket.id]));
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
@@ -33,5 +41,3 @@ io.on('connection', (socket) => {
 server.listen(3000, () => {
   console.log('listening on *:3000');
 });
-
-// TODO : Rajouter le thème sombre et le nombre d'utilisateurs connectés actuellement.

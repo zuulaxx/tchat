@@ -1,0 +1,3 @@
+- Faire un bouton pour changer le nom d'utilisateur et dire si il est pris ou non.
+- Rajouter le thème sombre et le nombre d'utilisateurs connectés actuellement.
+- Message système ... à changer son nom pour ...
