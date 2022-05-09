@@ -10,7 +10,7 @@ app.use(express.static('public'));
 var users = {};
 function userExists(username) {
   var duhArray = [];
-  for (const user of users) {
+  for (const user in users) {
     if (user == username) duhArray.push(user);
   }
   return duhArray;
