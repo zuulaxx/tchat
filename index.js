@@ -9,22 +9,29 @@ app.use(express.static('public'));
 
 var users = {};
 function userExists(username) {
-  var duhArray = [];
-  for (const user in users) {
-    if (user == username) duhArray.push(user);
-  }
-  return duhArray;
+  for (const user in users) if (users[user] == username) return true;
+  return false;
 }
 
 io.on('connection', (socket) => {
+  if (userExists(socket.handshake.query.username)) {
+    socket.emit('error', {
+      code: 'user_exists',
+      message: 'Cet utilisateur existe déjà !',
+    });
+    socket.leave();
+    return;
+  }
   users[socket.id] = socket.handshake.query.username;
-  console.log(userExists(users[socket.id]));
+
+  io.emit('user join', { id: socket.id, name: users[socket.id] });
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
       message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       type: 'system',
     });
+    io.emit('user leave', { id: socket.id, name: users[socket.id] });
     delete users[socket.id];
   });
 

@@ -2,8 +2,13 @@ const messages = document.getElementById('messages');
 const form = document.getElementById('msg-form');
 const input = document.getElementById('msg-input');
 
+var users = {};
+
 var username = localStorage.getItem('username');
+var prompting = false;
 function promptUsername() {
+  prompting = true;
+
   const msg = "Quel est ton nom d'utilisateur ?";
   var tempName;
 
@@ -14,6 +19,8 @@ function promptUsername() {
     username = tempName;
     localStorage.setItem('username', username);
   }
+
+  prompting = false;
 }
 document.getElementById('new-username').onclick = promptUsername;
 if (username == null) promptUsername();
@@ -23,9 +30,25 @@ const socket = io({ query: { username: username } });
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   if (input.value) {
-    socket.emit('chat message', { message:input.value, user:
-      username }); input.value = '';      
+    socket.emit('chat message', { message: input.value, user: username });
+    input.value = '';
   }
+});
+
+socket.on('error', function (err) {
+  console.error("Une erreur s'est produite sur le serveur !", err);
+  alert(err.message);
+
+  if (prompting && err.code == 'user_exists') promptUsername();
+});
+
+socket.on('user join', function (user) {
+  console.log('join', user);
+  users[user.id] = user.name;
+});
+socket.on('user leave', function (user) {
+  console.log('leave', user);
+  delete users[user.id];
 });
 
 socket.on('chat message', function (msg) {
