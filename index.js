@@ -12,27 +12,42 @@ function userExists(username) {
   for (const user in users) if (users[user] == username) return true;
   return false;
 }
-
-io.on('connection', (socket) => {
+function doggoCheck(socket) {
   if (userExists(socket.handshake.query.username)) {
     socket.emit('error', {
       code: 'user_exists',
-      message: 'Cet utilisateur existe déjà !',
+      message: "Ce nom d'utilisateur est déjà pris !",
     });
     socket.leave();
-    return;
-  }
-  users[socket.id] = socket.handshake.query.username;
+    return true;
+  } else return false;
+}
+function getUserList() {
+  var userList = [];
+  for (const user in users) userList.push({ id: user, name: users[user] });
+  return userList;
+}
 
-  io.emit('user join', { id: socket.id, name: users[socket.id] });
+io.on('connection', (socket) => {
+  if (doggoCheck(socket)) return;
+  users[socket.id] = socket.handshake.query.username;
+  io.emit('user list update', getUserList());
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
       message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       type: 'system',
     });
-    io.emit('user leave', { id: socket.id, name: users[socket.id] });
+    socket.broadcast.emit('user leave', {
+      id: socket.id,
+      name: users[socket.id],
+    });
     delete users[socket.id];
+    io.emit('user list update', getUserList());
+  });
+
+  socket.on('username change', (newUser) => {
+    doggoCheck(socket);
   });
 
   socket.on('chat message', (msg) => {
