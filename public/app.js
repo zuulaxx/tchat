@@ -6,7 +6,7 @@ var users = {};
 
 var username = localStorage.getItem('username');
 var forcePrompt = false;
-function promptUsername(alertIfSame = false, forcePrompt = false) {
+function promptUsername(socket) {
   const msg = "Quel est ton nom d'utilisateur ?";
   var tempName;
 
@@ -15,14 +15,12 @@ function promptUsername(alertIfSame = false, forcePrompt = false) {
 
   if (tempName != null && tempName.length > 0 && tempName != username) {
     username = tempName;
-    localStorage.setItem('username', username);
-  } else if (alertIfSame && tempName == username) {
-    alert("Ce nom d'utilisateur est déjà pris !");
-    promptUsername(true);
-  } else if (forcePrompt) promptUsername(true);
+    localStorage.setItem('username', tempName);
+    if (socket != null) return socket.emit('username change', tempName);
+  }
 }
 document.getElementById('new-username').onclick = function () {
-  promptUsername();
+  promptUsername(socket);
 };
 if (username == null) promptUsername();
 
@@ -39,10 +37,6 @@ form.addEventListener('submit', function (e) {
 socket.on('error', function (err) {
   console.error("Une erreur s'est produite sur le serveur !", err);
   alert(err.message);
-  if (err.code == 'user_exists') {
-    promptUsername(false, true);
-    window.location.reload();
-  }
 });
 
 socket.on('user list update', function (userList) {

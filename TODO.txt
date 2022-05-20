@@ -1,3 +1,4 @@
 - Dire si l'username il est pris ou non si oui faire réaparaitre le fenetre pour le changer.
 - Rajouter le nombre d'utilisateurs connectés actuellement.
 - Message système {**Pseudo actuel**} à changer son nom pour {**Nouveau pseudo**}
+- Liste des utilisateurs connectés

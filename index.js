@@ -8,20 +8,6 @@ const io = new Server(server);
 app.use(express.static('public'));
 
 var users = {};
-function userExists(username) {
-  for (const user in users) if (users[user] == username) return true;
-  return false;
-}
-function doggoCheck(socket) {
-  if (userExists(socket.handshake.query.username)) {
-    socket.emit('error', {
-      code: 'user_exists',
-      message: "Ce nom d'utilisateur est déjà pris !",
-    });
-    socket.leave();
-    return true;
-  } else return false;
-}
 function getUserList() {
   var userList = [];
   for (const user in users) userList.push({ id: user, name: users[user] });
@@ -29,7 +15,6 @@ function getUserList() {
 }
 
 io.on('connection', (socket) => {
-  if (doggoCheck(socket)) return;
   users[socket.id] = socket.handshake.query.username;
   io.emit('user list update', getUserList());
 
@@ -47,7 +32,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('username change', (newUser) => {
-    doggoCheck(socket);
+    users[socket.id] = newUser;
+    io.emit('user list update', getUserList());
   });
 
   socket.on('chat message', (msg) => {
