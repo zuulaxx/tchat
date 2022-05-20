@@ -5,11 +5,21 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <button id="new-username">Changer de pseudo</button>
-    <ul id="messages"></ul>
-    <form id="msg-form">
-      <input type="text" id="msg-input" autocomplete="off" /><button>Envoyer</button>
-    </form>
+    <div class="flex">
+      <div class="msg-ui">
+        <ul id="messages"></ul>
+      </div>
+      <div>
+        <form id="msg-form">
+          <button type="button" id="account-btn">👨‍🦲</button>
+          <input type="text" id="msg-input" autocomplete="off" />
+          <button>Envoyer</button>
+        </form>
+      </div>
+      <div>
+        <p>whaa cz march</p>
+      </div>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>
   </body>

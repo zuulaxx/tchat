@@ -5,6 +5,13 @@ body {
     Arial, sans-serif;
 }
 
+.flex {
+  display: flex;
+}
+.msg-ui {
+  width: 100%;
+}
+
 button {
   background: rgb(51, 51, 51);
   border: none;
@@ -20,11 +27,6 @@ button:hover {
 button:focus,
 input:focus {
   outline: solid 2px rgb(157, 157, 157);
-}
-
-#new-username {
-  position: fixed;
-  right: 0;
 }
 
 #msg-form {

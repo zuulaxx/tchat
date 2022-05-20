@@ -19,7 +19,7 @@ function promptUsername(socket) {
     if (socket != null) return socket.emit('username change', tempName);
   }
 }
-document.getElementById('new-username').onclick = function () {
+document.getElementById('account-btn').onclick = function () {
   promptUsername(socket);
 };
 if (username == null) promptUsername();
