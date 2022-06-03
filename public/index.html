@@ -2,23 +2,22 @@
 <html>
   <head>
     <title>The zuulaxx's tchat</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="flex">
-      <div class="msg-ui">
+    <div class="flex-container">
+      <div id="msg-ui">
         <ul id="messages"></ul>
       </div>
-      <div>
-        <form id="msg-form">
-          <button type="button" id="account-btn">👨‍🦲</button>
-          <input type="text" id="msg-input" autocomplete="off" />
-          <button>Envoyer</button>
-        </form>
-      </div>
-      <div>
+      <div id="members-bar">
         <p>whaa cz march</p>
       </div>
+      <form id="msg-form">
+        <button type="button" id="account-btn">👨‍🦲</button>
+        <input type="text" id="msg-input" autocomplete="off" />
+        <button>Envoyer</button>
+      </form>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="app.js"></script>

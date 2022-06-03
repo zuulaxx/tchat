@@ -1,15 +1,27 @@
+html,
 body {
-  margin: 0;
-  padding-bottom: 3rem;
+  margin: 0px;
+  height: 100%;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
 }
 
-.flex {
+.flex-container {
   display: flex;
+  flex-wrap: wrap;
+  height: 94.375%;
 }
-.msg-ui {
-  width: 100%;
+
+#msg-ui {
+  width: 75%;
+  height: 100%;
+}
+#members-bar {
+  flex: 1;
+  background-color: blue;
 }
 
 button {
@@ -32,11 +44,8 @@ input:focus {
 #msg-form {
   background: rgba(0, 0, 0, 0.15);
   padding: 0.25rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
+  width: 100%;
   height: 3rem;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
@@ -44,7 +53,7 @@ input:focus {
 input {
   border: none;
   padding: 0 1rem;
-  flex-grow: 1;
+  flex: 1;
   border-radius: 2rem;
   margin: 0.25rem;
 }
