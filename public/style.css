@@ -17,11 +17,14 @@ body {
 
 #msg-ui {
   width: 78%;
+  max-width: 78%;
   height: 100%;
+  max-height: 100%;
+  overflow: auto;
 }
 #members-bar {
   flex: 1;
-  background-color: blue;
+  min-width: 65px;
 }
 
 button {
