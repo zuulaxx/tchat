@@ -1,8 +1,7 @@
 const messages = document.getElementById('messages');
+const memBar = document.getElementById('members-bar');
 const form = document.getElementById('msg-form');
 const input = document.getElementById('msg-input');
-
-var users = {};
 
 var username = localStorage.getItem('username');
 var forcePrompt = false;
@@ -40,7 +39,15 @@ socket.on('error', function (err) {
 });
 
 socket.on('user list update', function (userList) {
-  users = userList;
+  console.log(userList);
+  memBar.innerHTML = `<h3>Utilisateurs - ${userList.length} :</h3>`;
+  const list = document.createElement('ul');
+  for (const user of userList) {
+    const el = document.createElement('li');
+    el.innerText = user.name;
+    list.appendChild(el);
+  }
+  memBar.appendChild(list);
 });
 
 socket.on('chat message', function (msg) {

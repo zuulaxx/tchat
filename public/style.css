@@ -24,7 +24,7 @@ body {
 }
 #members-bar {
   flex: 1;
-  min-width: 65px;
+  padding: 0.75em;
 }
 
 button {

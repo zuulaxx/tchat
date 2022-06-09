@@ -13,9 +13,16 @@ function getUserList() {
   for (const user in users) userList.push({ id: user, name: users[user] });
   return userList;
 }
+function ahh(sus) {
+  for (const id in users) {
+    if (sus == users[id]) return true;
+  }
+  return false;
+}
 
 io.on('connection', (socket) => {
   users[socket.id] = socket.handshake.query.username;
+  console.log(ahh(socket.handshake.query.username));
   io.emit('user list update', getUserList());
 
   socket.on('disconnect', () => {
@@ -23,16 +30,17 @@ io.on('connection', (socket) => {
       message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       type: 'system',
     });
-    socket.broadcast.emit('user leave', {
-      id: socket.id,
-      name: users[socket.id],
-    });
+    // socket.broadcast.emit('user leave', {
+    //   id: socket.id,
+    //   name: users[socket.id],
+    // });
     delete users[socket.id];
     io.emit('user list update', getUserList());
   });
 
   socket.on('username change', (newUser) => {
     users[socket.id] = newUser;
+    console.log('user change!!!');
     io.emit('user list update', getUserList());
   });
 
