@@ -23,7 +23,10 @@ document.getElementById('account-btn').onclick = function () {
 };
 if (username == null) promptUsername();
 
-const socket = io({ query: { username: username } });
+const socket = io({
+  query: { username: username },
+  upgrade: false,
+});
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();

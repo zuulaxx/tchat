@@ -11,18 +11,12 @@ var users = {};
 function getUserList() {
   var userList = [];
   for (const user in users) userList.push({ id: user, name: users[user] });
+  console.log(userList);
   return userList;
-}
-function ahh(sus) {
-  for (const id in users) {
-    if (sus == users[id]) return true;
-  }
-  return false;
 }
 
 io.on('connection', (socket) => {
   users[socket.id] = socket.handshake.query.username;
-  console.log(ahh(socket.handshake.query.username));
   io.emit('user list update', getUserList());
 
   socket.on('disconnect', () => {
@@ -35,6 +29,7 @@ io.on('connection', (socket) => {
     //   name: users[socket.id],
     // });
     delete users[socket.id];
+    socket.removeAllListeners();
     io.emit('user list update', getUserList());
   });
 
