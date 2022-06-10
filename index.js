@@ -11,7 +11,6 @@ var users = {};
 function getUserList() {
   var userList = [];
   for (const user in users) userList.push({ id: user, name: users[user] });
-  console.log(userList);
   return userList;
 }
 
