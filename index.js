@@ -23,18 +23,12 @@ io.on('connection', (socket) => {
       message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       type: 'system',
     });
-    // socket.broadcast.emit('user leave', {
-    //   id: socket.id,
-    //   name: users[socket.id],
-    // });
     delete users[socket.id];
-    socket.removeAllListeners();
     io.emit('user list update', getUserList());
   });
 
   socket.on('username change', (newUser) => {
     users[socket.id] = newUser;
-    console.log('user change!!!');
     io.emit('user list update', getUserList());
   });
 
