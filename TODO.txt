@@ -2,3 +2,4 @@
 - Rajouter le nombre d'utilisateurs connectés actuellement.
 - Message système {**Pseudo actuel**} à changer son nom pour {**Nouveau pseudo**}
 - Liste des utilisateurs connectés
+- Faire des commandes
