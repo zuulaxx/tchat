@@ -38,8 +38,8 @@ io.on('connection', (socket) => {
       msg.system = true;
 
       switch (msg.message.substring(1)) {
-        case 'wemen':
-          msg.message = 'bitch';
+        case 'web':
+          msg.message = 'Le site web de zuulaxx : https://zuulaxx.ml', console.log(`${users[socket.id]} utilise **/web**`)
           break;
       }
     }
