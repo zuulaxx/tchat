@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
       message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
-      type: 'system',
+      system: true,
     });
     delete users[socket.id];
     io.emit('user list update', getUserList());
@@ -33,12 +33,22 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chat message', (msg) => {
+    if (!msg.system && msg.message.startsWith('/')) {
+      msg.user = 'SYSTEM';
+      msg.system = true;
+
+      switch (msg.message.substring(1)) {
+        case 'wemen':
+          msg.message = 'bitch';
+          break;
+      }
+    }
     io.emit('chat message', msg);
   });
 
   socket.broadcast.emit('chat message', {
     message: `<b>${users[socket.id]}</b> s'est connecté !`,
-    type: 'system',
+    system: true,
   });
 });
 

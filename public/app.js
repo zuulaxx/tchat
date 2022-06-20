@@ -55,10 +55,10 @@ socket.on('user list update', function (userList) {
 
 socket.on('chat message', function (msg) {
   const item = document.createElement('li');
-  if (msg.type == 'system') {
-    item.innerHTML = msg.message;
-    item.classList.add('msg-system');
-  } else item.innerHTML = '<b>' + msg.user + ' :</b> ' + msg.message;
+  if (msg.system) item.classList.add('msg-system');
+  if (msg.user != undefined && msg.user != null)
+    item.innerHTML = '<b>' + msg.user + ' :</b> ';
+  item.innerHTML += msg.message;
 
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);
