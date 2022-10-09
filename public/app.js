@@ -1,11 +1,12 @@
 const messages = document.getElementById('messages');
-const memBar = document.getElementById('members-bar');
+const membersBar = document.getElementById('members-bar');
 const form = document.getElementById('msg-form');
 const input = document.getElementById('msg-input');
+const themeBtn = document.getElementById('theme-btn');
 
 var username = localStorage.getItem('username');
 var forcePrompt = false;
-function promptUsername(socket) {
+function promptUsername() {
   const msg = "Quel est ton nom d'utilisateur ?";
   var tempName;
 
@@ -19,9 +20,32 @@ function promptUsername(socket) {
   }
 }
 document.getElementById('account-btn').onclick = function () {
-  promptUsername(socket);
+  promptUsername();
 };
 if (username == null) promptUsername();
+
+function changeTheme(state) {
+  if (state == null)
+    state =
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (state) {
+    document.body.classList.add('dark');
+    themeBtn.textContent = '🌙';
+  } else {
+    document.body.classList.remove('dark');
+    themeBtn.textContent = '☀️';
+  }
+
+  localStorage.setItem('themeIsDark', state);
+
+  return state;
+}
+changeTheme();
+themeBtn.onclick = function () {
+  changeTheme(!localStorage.getItem('themeIsDark'));
+};
 
 const socket = io({
   query: { username: username },
@@ -43,14 +67,14 @@ socket.on('error', function (err) {
 
 socket.on('user list update', function (userList) {
   console.log(userList);
-  memBar.innerHTML = `<h3>Utilisateurs - ${userList.length} :</h3>`;
+  membersBar.innerHTML = `<h3>Utilisateurs - ${userList.length} :</h3>`;
   const list = document.createElement('ul');
   for (const user of userList) {
     const el = document.createElement('li');
     el.innerText = user.name;
     list.appendChild(el);
   }
-  memBar.appendChild(list);
+  membersBar.appendChild(list);
 });
 
 socket.on('chat message', function (msg) {

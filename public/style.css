@@ -38,7 +38,6 @@ body {
 button {
   background: rgb(51, 51, 51);
   border: none;
-  padding: 0.4rem;
   margin: 0.25rem;
   border-radius: 3px;
   outline: none;
@@ -63,7 +62,7 @@ input:focus {
 }
 button,
 input {
-  padding: 0 1rem;
+  padding: 0 0.75rem;
 }
 input {
   border: none;
