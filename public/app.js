@@ -59,7 +59,7 @@ form.addEventListener('submit', function (e) {
     input.value = '';
   }
 });
-
+ 
 socket.on('error', function (err) {
   console.error("Une erreur s'est produite sur le serveur !", err);
   alert(err.message);
