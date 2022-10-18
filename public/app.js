@@ -25,26 +25,28 @@ document.getElementById('account-btn').onclick = function () {
 if (username == null) promptUsername();
 
 function changeTheme(state) {
-  if (state == null)
-    state =
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  if (state) {
-    document.body.classList.add('dark');
-    themeBtn.textContent = '🌙';
-  } else {
-    document.body.classList.remove('dark');
-    themeBtn.textContent = '☀️';
+  if (state == null) {
+    var savedState = localStorage.getItem('themeIsDark');
+    if (savedState == null)
+      state =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+    else state = savedState != 'false';
   }
 
   localStorage.setItem('themeIsDark', state);
 
-  return state;
+  if (state) {
+    document.body.classList.add('dark');
+    themeBtn.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark');
+    themeBtn.textContent = '🌙';
+  }
 }
 changeTheme();
 themeBtn.onclick = function () {
-  changeTheme(!localStorage.getItem('themeIsDark'));
+  changeTheme(localStorage.getItem('themeIsDark') == 'false');
 };
 
 const socket = io({
@@ -59,7 +61,7 @@ form.addEventListener('submit', function (e) {
     input.value = '';
   }
 });
- 
+
 socket.on('error', function (err) {
   console.error("Une erreur s'est produite sur le serveur !", err);
   alert(err.message);
