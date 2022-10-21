@@ -18,6 +18,20 @@ body.dark {
   color: rgb(22, 22, 22);
 }
 
+body::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: rgb(22, 22, 22); /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(44, 44, 44); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid rgb(123, 6, 173); /* creates padding around scroll thumb */
+}
+
 .flex-container {
   display: flex;
   flex-wrap: wrap;

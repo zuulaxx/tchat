@@ -42,6 +42,11 @@ io.on('connection', (socket) => {
           msg.message = 'Le site web de zuulaxx : https://zuulaxx.ml', console.log(`${users[socket.id]} utilise **/web**`)
           break;
       }
+      switch (msg.message.substring(1)) {
+        case 'hey':
+          msg.message = 'Bienvenue aux nouveaux 👋', console.log(`${users[socket.id]} utilise **/Bienvenue**`)
+          break;
+      }
     }
     io.emit('chat message', msg);
   });
