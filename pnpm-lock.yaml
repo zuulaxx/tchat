@@ -3,12 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   express: ^4.18.1
   nodemon: ^2.0.16
-  pnpm: ^7.3.0
+  pnpm: ^7.14.0
   socket.io: ^4.4.1
 
 dependencies:
   express: 4.18.1
-  pnpm: 7.12.2
+  pnpm: 7.14.0
   socket.io: 4.5.0
 
 devDependencies:
@@ -907,8 +907,8 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
-  /pnpm/7.12.2:
-    resolution: {integrity: sha512-8QvnKANKN+YZXDmVYGI7zRJysdKldZI+w3AYnxu9IwtnLv1x6WuzrJr0nxMcTeuUAT908RjDqK+/6KJB9wNqxA==}
+  /pnpm/7.14.0:
+    resolution: {integrity: sha512-yUKSckJLBIw8ByqMKJF9497kzwrevuQhdL6o2eYbky7woAictxoGX9veBdQYCdBemuC239X2FJq/LGTpCjQ55w==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false
