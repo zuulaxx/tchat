@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
 
-app.use(express.static('public'));
+app.use(express.static('public'));h
 
 var users = {};
 function getUserList() {
