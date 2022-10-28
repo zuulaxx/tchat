@@ -1,5 +1,5 @@
-..vscode
-.vscode
+package-lock.json
+pnpm-lock.yaml
 
 # Logs
 logs
