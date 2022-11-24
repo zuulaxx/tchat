@@ -14,7 +14,7 @@ body {
 }
 
 body.dark {
-  background-color: rgb(44, 44, 44);
+  background-color: rgb(75, 75, 75);
   color: rgb(22, 22, 22);
 }
 
@@ -99,7 +99,7 @@ input {
   padding: 0.5rem 1rem;
 }
 #messages > li:nth-child(odd) {
-  background: #efefef;
+  background: #a1a1a1;
 }
 
 .msg-system {
