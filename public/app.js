@@ -39,9 +39,11 @@ function changeTheme(state) {
   if (state) {
     document.body.classList.add('dark');
     themeBtn.textContent = '☀️';
+    console.log("zuulaxx te remercie d'utiliser son tchat")
   } else {
     document.body.classList.remove('dark');
     themeBtn.textContent = '🌙';
+    console.log("zuulaxx te remercie d'utiliser son tchat")
   }
 }
 changeTheme();
