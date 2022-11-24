@@ -14,8 +14,8 @@ body {
 }
 
 body.dark {
-  background-color: rgb(75, 75, 75);
-  color: rgb(22, 22, 22);
+  background-color: rgb(36, 36, 36);
+  color: white;
 }
 
 body::-webkit-scrollbar {
@@ -97,9 +97,6 @@ input {
 }
 #messages > li {
   padding: 0.5rem 1rem;
-}
-#messages > li:nth-child(odd) {
-  background: #a1a1a1;
 }
 
 .msg-system {

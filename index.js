@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     socket.broadcast.emit('chat message', {
-      message: `<b>${users[socket.id]}</b> s'est déconnecté !`,
+      content: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       system: true,
     });
     delete users[socket.id];
@@ -33,26 +33,39 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chat message', (msg) => {
-    if (!msg.system && msg.message.startsWith('/')) {
-      msg.user = 'SYSTEM';
-      msg.system = true;
+    if (!msg.system && msg.content.startsWith('/')) {
+      var botMsg = {
+        user: 'SYSTÈME (' + msg.user + ')',
+        system: true,
+      };
 
-      switch (msg.message.substring(1)) {
+      var stuff = msg.content.trim().split(' ');
+      stuff[0] = stuff[0].substring(1);
+      switch (stuff[0]) {
         case 'web':
-          msg.message = 'Le site web de zuulaxx : https://zuulaxx.ml', console.log(`${users[socket.id]} utilise **/web**`)
+          botMsg.content =
+            'Le site web de zuulaxx : <a href="https://zuulaxx.ml">ici</a>';
           break;
-      }
-      switch (msg.message.substring(1)) {
         case 'hey':
-          msg.message = 'Bienvenue aux nouveaux 👋', console.log(`${users[socket.id]} utilise **/Bienvenue**`)
+          botMsg.content = 'Bienvenue aux nouveaux 👋';
+          break;
+        case 'say':
+          if (stuff.length > 1) {
+            stuff.shift();
+            botMsg.content = stuff.join(' ');
+          } else {
+            botMsg.content = 'Argument manquant !';
+          }
           break;
       }
-    }
-    io.emit('chat message', msg);
+
+      if (botMsg.content) io.emit('chat message', botMsg);
+      else io.emit('chat message', msg);
+    } else io.emit('chat message', msg);
   });
 
   socket.broadcast.emit('chat message', {
-    message: `<b>${users[socket.id]}</b> s'est connecté !`,
+    content: `<b>${users[socket.id]}</b> s'est connecté !`,
     system: true,
   });
 });

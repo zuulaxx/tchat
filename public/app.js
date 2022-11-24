@@ -39,12 +39,11 @@ function changeTheme(state) {
   if (state) {
     document.body.classList.add('dark');
     themeBtn.textContent = '☀️';
-    console.log("zuulaxx te remercie d'utiliser son tchat")
   } else {
     document.body.classList.remove('dark');
     themeBtn.textContent = '🌙';
-    console.log("zuulaxx te remercie d'utiliser son tchat")
   }
+  // console.log("zuulaxx te remercie d'utiliser son tchat");
 }
 changeTheme();
 themeBtn.onclick = function () {
@@ -59,7 +58,7 @@ const socket = io({
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   if (input.value) {
-    socket.emit('chat message', { message: input.value, user: username });
+    socket.emit('chat message', { content: input.value, user: username });
     input.value = '';
   }
 });
@@ -70,7 +69,6 @@ socket.on('error', function (err) {
 });
 
 socket.on('user list update', function (userList) {
-  console.log(userList);
   membersBar.innerHTML = `<h3>Utilisateurs - ${userList.length} :</h3>`;
   const list = document.createElement('ul');
   for (const user of userList) {
@@ -84,9 +82,8 @@ socket.on('user list update', function (userList) {
 socket.on('chat message', function (msg) {
   const item = document.createElement('li');
   if (msg.system) item.classList.add('msg-system');
-  if (msg.user != undefined && msg.user != null)
-    item.innerHTML = '<b>' + msg.user + ' :</b> ';
-  item.innerHTML += msg.message;
+  if (msg.user) item.innerHTML = '<b>' + msg.user + ' :</b> ';
+  item.innerHTML += msg.content;
 
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);
