@@ -86,10 +86,15 @@ socket.on('user list update', function (userList) {
 // var date = new Date(timestamp);
 // console.log(date);
 
+// var timestamp = Date.now()
+// var date = new Date(timestamp);
+
+// Date.now()
+
 socket.on('chat message', function (msg) {
   const item = document.createElement('li');
   if (msg.system) item.classList.add('msg-system');
-  if (msg.user) item.innerHTML = `<FONT size="1px"><u>(le 01/01/21 à 00h01)</u></FONT> <br> <b>${msg.user} :</b> `;
+  if (msg.user) item.innerHTML = `<FONT size="1px"><u>(le 01/01/21 à 00h01)(${Date.now()})</u></FONT> <br> <b>${msg.user} :</b> `;
   item.innerHTML += msg.content;
 
   messages.appendChild(item);
