@@ -43,7 +43,7 @@ function changeTheme(state) {
     document.body.classList.remove('dark');
     themeBtn.textContent = '🌙';
   }
-  // console.log("zuulaxx te remercie d'utiliser son tchat");
+  //console.log("zuulaxx te remercie d'utiliser son tchat");
 }
 changeTheme();
 themeBtn.onclick = function () {
