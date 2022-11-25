@@ -20,7 +20,9 @@
   "homepage": "https://github.com/zuulaxx/tchat#readme",
   "dependencies": {
     "express": "^4.18.1",
+    "marked": "^4.2.3",
     "pnpm": "^7.17.0",
+    "sanitize-html": "^2.7.3",
     "socket.io": "^4.4.1"
   },
   "devDependencies": {

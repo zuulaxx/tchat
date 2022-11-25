@@ -5,6 +5,9 @@ const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
 
+const { marked } = require('marked');
+const sanitizeHtml = require('sanitize-html');
+
 app.use(express.static('public'));
 
 var users = {};
@@ -33,6 +36,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chat message', (msg) => {
+    var allowMessage = true;
+
     if (!msg.system && msg.content.startsWith('/')) {
       var botMsg = {
         user: 'SYSTÈME (' + msg.user + ')',
@@ -59,9 +64,18 @@ io.on('connection', (socket) => {
           break;
       }
 
-      if (botMsg.content) io.emit('chat message', botMsg);
-      else io.emit('chat message', msg);
-    } else io.emit('chat message', msg);
+      if (botMsg.content) {
+        allowMessage = false;
+        io.emit('chat message', botMsg);
+      }
+    }
+
+    if (allowMessage) {
+      msg.content = sanitizeHtml(marked.parseInline(msg.content), {
+        disallowedTagsMode: 'escape',
+      }).trim();
+      io.emit('chat message', msg);
+    }
   });
 
   socket.broadcast.emit('chat message', {
