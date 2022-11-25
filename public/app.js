@@ -49,7 +49,6 @@ changeTheme();
 themeBtn.onclick = function () {
   changeTheme(localStorage.getItem('themeIsDark') == 'false');
 };
-
 const socket = io({
   query: { username: username },
   upgrade: false,
@@ -79,10 +78,18 @@ socket.on('user list update', function (userList) {
   membersBar.appendChild(list);
 });
 
+// // Création du timestamp
+// var timestamp = Date.now();
+// console.log(timestamp);
+ 
+// // Convertir le timestamp en date et heure lisibles par l'homme
+// var date = new Date(timestamp);
+// console.log(date);
+
 socket.on('chat message', function (msg) {
   const item = document.createElement('li');
   if (msg.system) item.classList.add('msg-system');
-  if (msg.user) item.innerHTML = '<b>' + msg.user + ' :</b> ';
+  if (msg.user) item.innerHTML = `<b>${msg.user} :</b> `;
   item.innerHTML += msg.content;
 
   messages.appendChild(item);

@@ -1,2 +1,2 @@
-- Commande kick minute/heure
+- Commande kick (minute/heure)
 - Date d'envoi

@@ -25,6 +25,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('chat message', {
       content: `<b>${users[socket.id]}</b> s'est déconnecté !`,
       system: true,
+      timestamp: Date.now(),
     });
     delete users[socket.id];
     io.emit('user list update', getUserList());
@@ -37,11 +38,13 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', (msg) => {
     var allowMessage = true;
+    var timestamp = Date.now();
 
     if (!msg.system && msg.content.startsWith('/')) {
       var botMsg = {
         user: 'SYSTÈME (' + msg.user + ')',
         system: true,
+        timestamp: timestamp,
       };
 
       var stuff = msg.content.trim().split(' ');
@@ -74,6 +77,7 @@ io.on('connection', (socket) => {
       msg.content = sanitizeHtml(marked.parseInline(msg.content), {
         disallowedTagsMode: 'escape',
       }).trim();
+      msg.timestamp = timestamp;
       io.emit('chat message', msg);
     }
   });
@@ -84,6 +88,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log('listening on *:3000');
+server.listen(8000, () => {
+  console.log('listening on *:8000');
 });
