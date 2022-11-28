@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(1234, () => {
-  console.log('listening on *:1234');
+const port = 1234;
+server.listen(port, () => {
+  console.log(`listening on *:${port}`);
 });

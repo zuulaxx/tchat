@@ -1,3 +1,4 @@
+const messagesUI = document.getElementById('msg-ui');
 const messages = document.getElementById('messages');
 const membersBar = document.getElementById('members-bar');
 const form = document.getElementById('msg-form');
@@ -38,12 +39,13 @@ function changeTheme(state) {
 
   if (state) {
     document.body.classList.add('dark');
+    document.body.classList.remove('light');
     themeBtn.textContent = '☀️';
   } else {
+    document.body.classList.add('light');
     document.body.classList.remove('dark');
     themeBtn.textContent = '🌙';
   }
-  //console.log("zuulaxx te remercie d'utiliser son tchat");
 }
 changeTheme();
 themeBtn.onclick = function () {
@@ -78,25 +80,17 @@ socket.on('user list update', function (userList) {
   membersBar.appendChild(list);
 });
 
-// // Création du timestamp
-// var timestamp = Date.now();
-// console.log(timestamp);
- 
-// // Convertir le timestamp en date et heure lisibles par l'homme
-// var date = new Date(timestamp);
-// console.log(date);
-
-// var timestamp = Date.now()
-// var date = new Date(timestamp);
-
-// Date.now()
-
 socket.on('chat message', function (msg) {
   const item = document.createElement('li');
   if (msg.system) item.classList.add('msg-system');
-  if (msg.user) item.innerHTML = `<FONT size="1px"><u>(le 01/01/21 à 00h01)(${Date.now()})</u></FONT> <br> <b>${msg.user} :</b> `;
+  if (msg.user) {
+    const date = new Date(msg.timestamp);
+    item.innerHTML = `<span class="date">Le ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}</span><br /><b>${
+      msg.user
+    } :</b> `;
+  }
   item.innerHTML += msg.content;
 
   messages.appendChild(item);
-  window.scrollTo(0, document.body.scrollHeight);
+  messagesUI.scrollTop = messagesUI.scrollHeight;
 });

@@ -102,3 +102,14 @@ input {
 .msg-system {
   color: red;
 }
+
+.date {
+  color: rgb(191, 191, 191);
+  font-size: 0.65em;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.light .date {
+  color: rgb(48, 48, 48);
+}
