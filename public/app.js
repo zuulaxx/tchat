@@ -5,6 +5,11 @@ const form = document.getElementById('msg-form');
 const input = document.getElementById('msg-input');
 const themeBtn = document.getElementById('theme-btn');
 
+const socket = io({
+  query: { username: username },
+  upgrade: false,
+});
+
 var username = localStorage.getItem('username');
 var forcePrompt = false;
 function promptUsername() {
@@ -51,10 +56,20 @@ changeTheme();
 themeBtn.onclick = function () {
   changeTheme(localStorage.getItem('themeIsDark') == 'false');
 };
-const socket = io({
-  query: { username: username },
-  upgrade: false,
-});
+
+function addMessage(msg) {
+  const item = document.createElement('li');
+  if (msg.system) item.classList.add('msg-system');
+  if (msg.user) {
+    const date = new Date(msg.timestamp);
+    item.innerHTML = `<span class="date">Le ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}</span><br /><b>${
+      msg.user
+    } :</b> `;
+  }
+  item.innerHTML += msg.content;
+  messages.appendChild(item);
+  messagesUI.scrollTop = messagesUI.scrollHeight;
+}
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -80,17 +95,4 @@ socket.on('user list update', function (userList) {
   membersBar.appendChild(list);
 });
 
-socket.on('chat message', function (msg) {
-  const item = document.createElement('li');
-  if (msg.system) item.classList.add('msg-system');
-  if (msg.user) {
-    const date = new Date(msg.timestamp);
-    item.innerHTML = `<span class="date">Le ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}</span><br /><b>${
-      msg.user
-    } :</b> `;
-  }
-  item.innerHTML += msg.content;
-
-  messages.appendChild(item);
-  messagesUI.scrollTop = messagesUI.scrollHeight;
-});
+socket.on('chat message', addMessage);

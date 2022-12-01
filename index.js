@@ -1,13 +1,14 @@
-const express = require('express');
+import express from 'express';
+import http from 'http';
+import sanitizeHtml from 'sanitize-html';
+import jsoning from 'jsoning';
+import { Server } from 'socket.io';
+import { marked } from 'marked';
+
+const db = new jsoning('database.json');
 const app = express();
-const http = require('http');
 const server = http.createServer(app);
-const { Server } = require('socket.io');
 const io = new Server(server);
-
-const { marked } = require('marked');
-const sanitizeHtml = require('sanitize-html');
-
 app.use(express.static('public'));
 
 var users = {};
@@ -36,8 +37,8 @@ io.on('connection', (socket) => {
     io.emit('user list update', getUserList());
   });
 
-  socket.on('chat message', (msg) => {
-    var allowMessage = true;
+  socket.on('chat message', async (msg) => {
+    var sendMessage = true;
     var timestamp = Date.now();
 
     if (!msg.system && msg.content.startsWith('/')) {
@@ -68,16 +69,18 @@ io.on('connection', (socket) => {
       }
 
       if (botMsg.content) {
-        allowMessage = false;
+        sendMessage = false;
         io.emit('chat message', botMsg);
       }
     }
 
-    if (allowMessage) {
+    if (sendMessage) {
       msg.content = sanitizeHtml(marked.parseInline(msg.content), {
         disallowedTagsMode: 'escape',
       }).trim();
       msg.timestamp = timestamp;
+
+      await db.push('messages', msg);
       io.emit('chat message', msg);
     }
   });

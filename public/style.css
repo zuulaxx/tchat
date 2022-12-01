@@ -18,46 +18,32 @@ body.dark {
   color: white;
 }
 
-#msg-ui::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 12px;
 }
 
-#msg-ui::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: rgb(22, 22, 22);
 }
 
-#msg-ui::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: rgb(44, 44, 44);
   border-radius: 20px;
   border: 3px solid rgb(123, 6, 173);
 }
 
-.light #msg-ui::-webkit-scrollbar {
+.light ::-webkit-scrollbar {
   width: 12px;
 }
 
-.light #msg-ui::-webkit-scrollbar-track {
-  background: rgb(181, 181, 181)
+.light ::-webkit-scrollbar-track {
+  background: rgb(181, 181, 181);
 }
 
-.light #msg-ui::-webkit-scrollbar-thumb {
+.light ::-webkit-scrollbar-thumb {
   background-color: rgb(164, 164, 164);
   border-radius: 20px;
   border: 3px solid rgb(17, 201, 211);
-}
-
-body::-webkit-scrollbar {
-  width: 12px; /* width of the entire scrollbar */
-}
-
-body::-webkit-scrollbar-track {
-  background: rgb(22, 22, 22); /* color of the tracking area */
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: rgb(44, 44, 44); /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
-  border: 3px solid rgb(123, 6, 173); /* creates padding around scroll thumb */
 }
 
 .flex-container {
