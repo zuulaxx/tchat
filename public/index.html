@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title>The zuulaxx's tchat</title>
-    <meta property="og:image" content="img/tchat-logo.png" />
-    <meta property="image" content="img/tchat-logo.png" />
-    <meta property="og:title" content="zuulaxx" />
-    <meta
-      property="og:description"
-      content="tchat officiel de zuulaxx (zlx-tchat)"
-    />
-    <meta name="description" content="tchat officiel de zuulaxx (zlx-tchat)" />
-    <meta property="og:type" content="website" />
-    <link rel="icon" href="img/tchat-logo.png" />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+  <title>The zuulaxx's tchat</title>
+  <meta property="og:image" content="img/tchat-logo.png" />
+  <meta property="image" content="img/tchat-logo.png" />
+  <meta property="og:title" content="zuulaxx" />
+  <meta property="og:description" content="tchat officiel de zuulaxx (zlx-tchat)" />
+  <meta name="description" content="tchat officiel de zuulaxx (zlx-tchat)" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="img/tchat-logo.png" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
   </h2>
-    <div class="flex-container">
-      <div id="msg-ui">
+  <div class="flex-container">
+    <div id="msg-ui">
+      <div id="dbmessgaes">
         <ul id="messages"></ul>
       </div>
-      <div id="members-bar"></div>
-      <form id="msg-form">
-        <button type="button" id="account-btn" title="Changer le nom d'utilisateur">📝</button>
-        <button type="button" id="theme-btn" title="Changer le thème"></button>
-        <input type="text" id="msg-input" autocomplete="off" />
-        <button>Envoyer</button>
-      </form>
     </div>
+  <div id="members-bar"></div>
+  <form id="msg-form">
+    <button type="button" id="account-btn" title="Changer le nom d'utilisateur">📝</button>
+    <button type="button" id="theme-btn" title="Changer le thème"></button>
+    <input type="text" id="msg-input" autocomplete="off" />
+    <button>Envoyer</button>
+  </form>
+  </div>
   </h2>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="app.js"></script>
-  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+
 </html>

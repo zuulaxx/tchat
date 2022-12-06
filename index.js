@@ -5,7 +5,7 @@ import jsoning from 'jsoning';
 import { Server } from 'socket.io';
 import { marked } from 'marked';
 
-const db = new jsoning('database.json');
+const db = new jsoning('db.json');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -66,6 +66,10 @@ io.on('connection', (socket) => {
             botMsg.content = 'Argument manquant !';
           }
           break;
+        case 'dbclear':
+          botMsg.content = 'db is clear';
+          await db.clear();
+          break;
       }
 
       if (botMsg.content) {
@@ -82,6 +86,7 @@ io.on('connection', (socket) => {
 
       await db.push('messages', msg);
       io.emit('chat message', msg);
+      await db.get('messages');
     }
   });
 
