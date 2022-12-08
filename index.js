@@ -76,6 +76,7 @@ io.on('connection', (socket) => {
           botMsg.content = 'old db --> On';
           database.set('oldmsg');
           console.log(oldmsg);
+          //item.innerHTML =
           break;
       }
 
