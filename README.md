@@ -14,7 +14,7 @@ The zuulaxx's tchat
 
 `npm run dev` or `pnpm dev`.
 
-__Html ingection impossibles__
+## __Html ingection impossibles__
 
 ```js
     if (allowMessage) {
