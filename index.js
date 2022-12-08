@@ -6,9 +6,7 @@ import { Server } from 'socket.io';
 import { marked } from 'marked';
 
 const database = new jsoning('database.json');
-// database.set("oldmsg");
-// let oldmsg = database.get("oldmsg");
-// console.log(oldmsg)
+let oldmsg = database.get('oldmsg');
 
 const app = express();
 const server = http.createServer(app);
@@ -74,6 +72,11 @@ io.on('connection', (socket) => {
           botMsg.content = 'db is clear';
           await database.clear();
           break;
+        case 'oldmsg':
+          botMsg.content = 'old db --> On';
+          database.set('oldmsg');
+          console.log(oldmsg);
+          break;
       }
 
       if (botMsg.content) {
@@ -88,9 +91,9 @@ io.on('connection', (socket) => {
       }).trim();
       msg.timestamp = timestamp;
 
-      await database.push('messages', msg);
+      await database.push('oldmsg', msg);
       io.emit('chat message', msg);
-      await database.get('messages');
+      await database.get('oldmsg');
     }
   });
 
