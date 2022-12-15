@@ -6,16 +6,15 @@ import { Server } from 'socket.io';
 import { marked } from 'marked';
 
 const database = new jsoning('database.json');
-let oldmsg = database.get('oldmsg');
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 app.use(express.static('public'));
 
-var users = {};
+let users = {};
 function getUserList() {
-  var userList = [];
+  let userList = [];
   for (const user in users) userList.push({ id: user, name: users[user] });
   return userList;
 }
@@ -40,17 +39,17 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chat message', async (msg) => {
-    var sendMessage = true;
-    var timestamp = Date.now();
+    let sendMessage = true;
+    let timestamp = Date.now();
 
     if (!msg.system && msg.content.startsWith('/')) {
-      var botMsg = {
+      let botMsg = {
         user: 'SYSTÈME (' + msg.user + ')',
         system: true,
         timestamp: timestamp,
       };
 
-      var stuff = msg.content.trim().split(' ');
+      let stuff = msg.content.trim().split(' ');
       stuff[0] = stuff[0].substring(1);
       switch (stuff[0]) {
         case 'web':
@@ -68,16 +67,6 @@ io.on('connection', (socket) => {
             botMsg.content = 'Argument manquant !';
           }
           break;
-        case 'dbclear':
-          botMsg.content = 'db is clear';
-          await database.clear();
-          break;
-        case 'oldmsg':
-          botMsg.content = 'old db --> On';
-          database.set('oldmsg');
-          console.log(oldmsg);
-          //item.innerHTML =
-          break;
       }
 
       if (botMsg.content) {
@@ -92,9 +81,7 @@ io.on('connection', (socket) => {
       }).trim();
       msg.timestamp = timestamp;
 
-      await database.push('oldmsg', msg);
       io.emit('chat message', msg);
-      await database.get('oldmsg');
     }
   });
 

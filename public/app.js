@@ -5,16 +5,12 @@ const form = document.getElementById('msg-form');
 const input = document.getElementById('msg-input');
 const themeBtn = document.getElementById('theme-btn');
 
-const socket = io({
-  query: { username: username },
-  upgrade: false,
-});
+let socket;
 
-var username = localStorage.getItem('username');
-var forcePrompt = false;
-function promptUsername() {
+let username = localStorage.getItem('username');
+function promptUsername(socket) {
   const msg = "Quel est ton nom d'utilisateur ?";
-  var tempName;
+  let tempName;
 
   if (username == null) tempName = prompt(msg);
   else tempName = prompt(msg, username);
@@ -25,14 +21,20 @@ function promptUsername() {
     if (socket != null) return socket.emit('username change', tempName);
   }
 }
+
+socket = io({
+  query: { username: username },
+  upgrade: false,
+});
+
 document.getElementById('account-btn').onclick = function () {
-  promptUsername();
+  promptUsername(socket);
 };
-if (username == null) promptUsername();
+if (username == null) promptUsername(socket);
 
 function changeTheme(state) {
   if (state == null) {
-    var savedState = localStorage.getItem('themeIsDark');
+    let savedState = localStorage.getItem('themeIsDark');
     if (savedState == null)
       state =
         window.matchMedia &&
