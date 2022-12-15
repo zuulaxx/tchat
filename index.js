@@ -7,6 +7,9 @@ import { marked } from 'marked';
 
 const database = new jsoning('database.json');
 
+let oldmsg = database.get('oldmsg');
+console.dirxml(oldmsg);
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
@@ -67,6 +70,10 @@ io.on('connection', (socket) => {
             botMsg.content = 'Argument manquant !';
           }
           break;
+        case 'dbclear':
+          botMsg.content = 'DataBase is clear !';
+          database.clear();
+          break;
       }
 
       if (botMsg.content) {
@@ -81,7 +88,9 @@ io.on('connection', (socket) => {
       }).trim();
       msg.timestamp = timestamp;
 
+      await database.push('oldmsg', msg);
       io.emit('chat message', msg);
+      await database.get('oldmsg');
     }
   });
 
@@ -89,6 +98,7 @@ io.on('connection', (socket) => {
     content: `<b>${users[socket.id]}</b> s'est connecté !`,
     system: true,
   });
+  
 });
 
 const port = 1234;
