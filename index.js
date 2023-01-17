@@ -74,6 +74,12 @@ io.on('connection', (socket) => {
           botMsg.content = 'DataBase is clear !';
           database.clear();
           break;
+        case 'db':
+          botMsg.content = `Voici le contenue de la database : ${console.log(
+            oldmsg
+          )}`;
+          console.log(oldmsg);
+          break;
       }
 
       if (botMsg.content) {
@@ -98,7 +104,6 @@ io.on('connection', (socket) => {
     content: `<b>${users[socket.id]}</b> s'est connecté !`,
     system: true,
   });
-  
 });
 
 const port = 1234;
