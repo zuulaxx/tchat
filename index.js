@@ -1,25 +1,13 @@
-import express, { text } from 'express';
+import express from 'express';
 import http from 'http';
 import sanitizeHtml from 'sanitize-html';
 import { Server } from 'socket.io';
 import { marked } from 'marked';
-import jsoning from 'jsoning'; 
+// import jsoning from 'jsoning';
 
-// Ceci est un Objet
-const database = new jsoning('database.json');
-
-let oldmsgs = database.get('oldmsgs');
-console.log(oldmsgs);
-//
-
-// Afficher la db en html
-
-//
-
-const app = express();
-const server = http.createServer(app);
+// const database = new jsoning('database.json');
+const server = http.createServer(express().use(express.static('public')));
 const io = new Server(server);
-app.use(express.static('public'));
 
 let users = {};
 function getUserList() {
@@ -58,7 +46,7 @@ io.on('connection', (socket) => {
         timestamp: timestamp,
       };
 
-      let stuff = msg.content.trim().split(' ');
+      let stuff = msg.content.split(' ');
       stuff[0] = stuff[0].substring(1);
       switch (stuff[0]) {
         case 'web':
@@ -76,14 +64,14 @@ io.on('connection', (socket) => {
             botMsg.content = 'Argument manquant !';
           }
           break;
-        case 'dbclear':
-          botMsg.content = 'DataBase is clear !';
-          database.clear();
-          break;
-        case 'db':
-          botMsg.content = database.get('oldmsgs');
-          console.log(oldmsgs);
-          break;
+        // case 'dbclear':
+        //   botMsg.content = 'DataBase is clear !';
+        //   database.clear();
+        //   break;
+        // case 'db':
+        //   botMsg.content = database.get('oldmsgs');
+        //   console.log(oldmsgs);
+        //   break;
       }
 
       if (botMsg.content) {
@@ -93,12 +81,13 @@ io.on('connection', (socket) => {
     }
 
     if (sendMessage) {
-      msg.content = sanitizeHtml(marked.parseInline(msg.content), {
+      msg.content += '\n';
+      msg.content = sanitizeHtml(marked.parseInline(msg.content.trim()), {
         disallowedTagsMode: 'escape',
-      }).trim();
+      });
       msg.timestamp = timestamp;
 
-      await database.push('oldmsgs', msg);
+      // await database.push('oldmsgs', msg);
       io.emit('chat message', msg);
     }
   });
