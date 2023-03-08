@@ -89,7 +89,15 @@
     if (msg.system) item.classList.add('msg-system');
     if (msg.user) {
       const date = new Date(msg.timestamp);
-      item.innerHTML = `<span class="date">Le ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}</span><br /><b>${
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      if (day < 10) day = `0${day}`;
+      if (month < 10) month = `0${month}`;
+      if (hours < 10) hours = `0${hours}`;
+      if (minutes < 10) minutes = `0${minutes}`;
+      item.innerHTML = `<span class="date">Le ${day}/${month}/${date.getFullYear()} à ${hours}:${minutes}</span><br /><b>${
         msg.user
       } :</b> `;
     }
