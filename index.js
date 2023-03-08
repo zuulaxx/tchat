@@ -13,6 +13,7 @@ console.log(oldmsgs);
 //
 
 // Afficher la db en html
+
 //
 
 const app = express();
@@ -99,7 +100,6 @@ io.on('connection', (socket) => {
 
       await database.push('oldmsgs', msg);
       io.emit('chat message', msg);
-      await database.get('oldmsgs');
     }
   });
 
