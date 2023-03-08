@@ -1,14 +1,19 @@
-import express from 'express';
+import express, { text } from 'express';
 import http from 'http';
 import sanitizeHtml from 'sanitize-html';
-import jsoning from 'jsoning';
 import { Server } from 'socket.io';
 import { marked } from 'marked';
+import jsoning from 'jsoning'; 
 
+// Ceci est un Objet
 const database = new jsoning('database.json');
 
-let oldmsg = database.get('oldmsg');
-console.dirxml(oldmsg);
+let oldmsgs = database.get('oldmsgs');
+console.log(oldmsgs);
+//
+
+// Afficher la db en html
+//
 
 const app = express();
 const server = http.createServer(app);
@@ -75,10 +80,8 @@ io.on('connection', (socket) => {
           database.clear();
           break;
         case 'db':
-          botMsg.content = `Voici le contenue de la database : ${console.log(
-            oldmsg
-          )}`;
-          console.log(oldmsg);
+          botMsg.content = database.get('oldmsgs');
+          console.log(oldmsgs);
           break;
       }
 
@@ -94,9 +97,9 @@ io.on('connection', (socket) => {
       }).trim();
       msg.timestamp = timestamp;
 
-      await database.push('oldmsg', msg);
+      await database.push('oldmsgs', msg);
       io.emit('chat message', msg);
-      await database.get('oldmsg');
+      await database.get('oldmsgs');
     }
   });
 

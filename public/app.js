@@ -66,11 +66,12 @@ function addMessage(msg) {
     const date = new Date(msg.timestamp);
     item.innerHTML = `<span class="date">Le ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} à ${date.getHours()}:${date.getMinutes()}</span><br /><b>${
       msg.user
-    } :</b> `;
+    } :</b> ${dbhtml}`;
   }
   item.innerHTML += msg.content;
   messages.appendChild(item);
   messagesUI.scrollTop = messagesUI.scrollHeight;
+
 }
 
 form.addEventListener('submit', function (e) {
