@@ -80,9 +80,9 @@ io.on('connection', (socket) => {
       }
     }
 
-    if (sendMessage) {
-      msg.content += '\n';
-      msg.content = sanitizeHtml(marked.parseInline(msg.content.trim()), {
+    msg.content = msg.content.trim();
+    if (sendMessage && /\S/.test(msg.content)) {
+      msg.content = sanitizeHtml(marked.parseInline(msg.content), {
         disallowedTagsMode: 'escape',
       });
       msg.timestamp = timestamp;
