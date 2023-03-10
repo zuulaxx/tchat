@@ -22,7 +22,6 @@
   "dependencies": {
     "debug": "^4.3.4",
     "express": "^4.18.1",
-    "jsoning": "^0.13.23",
     "marked": "^4.2.3",
     "pnpm": "^7.17.0",
     "sanitize-html": "^2.7.3",

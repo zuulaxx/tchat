@@ -6,8 +6,6 @@
   const input = document.getElementById('msg-input');
   const themeBtn = document.getElementById('theme-btn');
 
-  let socket;
-
   let username = localStorage.getItem('username');
   function promptUsername(socket) {
     const msg = "Quel est ton nom d'utilisateur ?";
@@ -19,11 +17,12 @@
     if (tempName != null && tempName.length > 0 && tempName != username) {
       username = tempName;
       localStorage.setItem('username', tempName);
-      if (socket != null) return socket.emit('username change', tempName);
+      if (socket != null) socket.emit('username change', tempName);
     }
   }
 
-  socket = io({
+  if (username == null) promptUsername();
+  const socket = io({
     query: { username: username },
     upgrade: false,
   });
@@ -31,7 +30,6 @@
   document.getElementById('account-btn').onclick = function () {
     promptUsername(socket);
   };
-  if (username == null) promptUsername(socket);
 
   function changeTheme(state) {
     if (state == null) {
@@ -63,7 +61,7 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (input.value) {
-      socket.emit('chat message', { content: input.value, user: username });
+      socket.emit('chat message', { content: input.value });
       input.value = '';
     }
   });
@@ -89,10 +87,10 @@
     if (msg.system) item.classList.add('msg-system');
     if (msg.user) {
       const date = new Date(msg.timestamp);
-      var day = date.getDate();
-      var month = date.getMonth() + 1;
-      var hours = date.getHours();
-      var minutes = date.getMinutes();
+      let day = date.getDate();
+      let month = date.getMonth() + 1;
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
       if (day < 10) day = `0${day}`;
       if (month < 10) month = `0${month}`;
       if (hours < 10) hours = `0${hours}`;
