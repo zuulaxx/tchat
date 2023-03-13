@@ -57,6 +57,11 @@ io.on('connection', (socket) => {
           case 'hey':
             botMsg.content = 'Bienvenue aux nouveaux 👋';
             break;
+          // case 'clear':
+          //   botMsg.content = 'Les messages sont supprimés !';
+          //   var mess = document.getElementById('li');
+          //   mess.clear;
+          //   break;
         }
 
         if (botMsg.content) io.emit('chat message', botMsg);
