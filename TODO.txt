@@ -1,2 +1,0 @@
-- Messsage de changement de pseudo
-- API Chatbot
