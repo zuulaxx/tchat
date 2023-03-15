@@ -127,3 +127,27 @@ input {
 .light .date {
   color: rgb(48, 48, 48);
 }
+
+/* Début tchat */
+
+.tchatsection {
+  display: flex;
+  padding: 0.8em;
+  border-radius: 5px;
+  color: #008000;
+}
+
+.tchatsection .title {
+  padding: 0.2em;
+  margin: 0.1em;
+  background-color: #008000;
+  box-shadow: 4px 4px #040494, 8px 8px #a80000;
+  color: whitesmoke;
+}
+
+.tchat {
+  height: 150px !important;
+  width: 250px !important;
+}
+
+/* <!-- Fin tchat --> */
