@@ -58,9 +58,7 @@ io.on('connection', (socket) => {
             botMsg.content = 'Bienvenue aux nouveaux 👋';
             break;
           // case 'clear':
-          //   botMsg.content = 'Les messages sont supprimés !';
-          //   var mess = document.getElementById('li');
-          //   mess.clear;
+          //   botMsg.content = 'Tout les messages ont bien été supprimées !';
           //   break;
         }
 
