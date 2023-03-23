@@ -22,15 +22,12 @@
   "dependencies": {
     "debug": "^4.3.4",
     "express": "^4.18.2",
-    "marked": "^4.2.12",
-    "pnpm": "^7.29.0",
+    "marked": "^4.3.0",
+    "pnpm": "^7.30.1",
     "sanitize-html": "^2.10.0",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
-  },
-  "engines": {
-    "node": "16.x"
+    "nodemon": "^2.0.22"
   }
 }
