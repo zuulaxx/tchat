@@ -55,14 +55,11 @@ io.on('connection', (socket) => {
               'Le site web de zuulaxx : <a href="https://zuulaxx.ml">ici</a>';
             break;
           case 'hey':
-            ("attention");
             botMsg.content = 'Bienvenue aux nouveaux 👋';
             break;
-          case 'clear':
-            const msg = "Quel est ton nom d'utilisateur ?";
-            prompt(msg) // Faire prompt un bouton avec marquer actualiser visible par tout les utilisateurs connéctées qui au click actualisera la page et donc supprimera les messages
-            botMsg.content = 'Tout les messages ont bien été supprimées !';
-            break;
+          // case 'clear':
+          //   botMsg.content = 'Tout les messages ont bien été supprimées !';
+          //   break;
         }
 
         if (botMsg.content) io.emit('chat message', botMsg);
