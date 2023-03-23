@@ -52,19 +52,20 @@ body.dark {
   height: calc(100% - var(--msg-form-height));
 }
 
+
 #msg-ui {
-  width: 78%;
+  width: 75%;
   height: 100%;
   overflow: auto;
 }
 #members-bar {
-  flex: 1;
   padding: 0.75em;
 }
 @media screen and (max-width: 550px) {
   #msg-ui {
     width: 100%;
     max-width: 100%;
+    flex-direction: column;
   }
 }
 
