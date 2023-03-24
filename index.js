@@ -15,6 +15,7 @@ function updateUsers() {
 }
 
 io.on('connection', (socket) => {
+  console.log(`\n Tchat ON 👍`);
   let username = socket.handshake.query.username;
   users[socket.id] = username;
 
